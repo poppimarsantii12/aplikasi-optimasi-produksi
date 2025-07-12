@@ -147,8 +147,8 @@ Z = ({:,} \cdot x) + ({:,} \cdot y)
 
     st.markdown(f"""
 #### Fungsi Kendala:
-1. \( {jam_meja}x + {jam_kursi}y \leq {total_jam} \)
-2. \( {kayu_meja}x + {kayu_kursi}y \leq {total_kayu} \)
+1. \( {jam_meja}x + {jam_kursi}y \le {total_jam} \)
+2. \( {kayu_meja}x + {kayu_kursi}y \le {total_kayu} \)
 3. \( x > 0, \ y > 0 \)
 """)
 
@@ -165,13 +165,13 @@ Z = {profit_meja:,}x + {profit_kursi:,}y
 \]
 
 #### Fungsi Kendala dengan Angka:
-1. \( {jam_meja}x + {jam_kursi}y \leq {total_jam} \)  
-2. \( {kayu_meja}x + {kayu_kursi}y \leq {total_kayu} \)
+1. \( {jam_meja}x + {jam_kursi}y \le {total_jam} \)  
+2. \( {kayu_meja}x + {kayu_kursi}y \le {total_kayu} \)
 
 #### Evaluasi Solusi Optimal:
 - Titik: \( x = {x_opt}, \ y = {y_opt} \)
-- Total Jam: \( {jam_meja} \cdot {x_opt} + {jam_kursi} \cdot {y_opt} = {total_jam_terpakai} \leq {total_jam} \)
-- Total Kayu: \( {kayu_meja} \cdot {x_opt} + {kayu_kursi} \cdot {y_opt} = {total_kayu_terpakai} \leq {total_kayu} \)
+- Total Jam: \( {jam_meja} \cdot {x_opt} + {jam_kursi} \cdot {y_opt} = {total_jam_terpakai} \le {total_jam} \)
+- Total Kayu: \( {kayu_meja} \cdot {x_opt} + {kayu_kursi} \cdot {y_opt} = {total_kayu_terpakai} \le {total_kayu} \)
 - **Keuntungan Maksimal: Rp {optimal_profit:,.0f}**
 """)
     else:
