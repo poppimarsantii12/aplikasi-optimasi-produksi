@@ -56,16 +56,29 @@ if intersect_point[0] > 0 and intersect_point[1] > 0:
 
 corner_points_unique = sorted(list(set(corner_points)), key=lambda k: (k[0], k[1]))
 
+# --- OPTIMALISASI DENGAN SYARAT x > 0 dan y > 0 ---
 optimal_profit, optimal_point = 0, (0, 0)
 profits_at_corners = []
+valid_solutions = []
+
 for x, y in corner_points_unique:
     x_int = math.floor(x)
     y_int = math.floor(y)
-    if x_int > 0 and y_int > 0 and (jam_meja * x_int + jam_kursi * y_int <= total_jam) and (kayu_meja * x_int + kayu_kursi * y_int <= total_kayu):
+    total_jam_dipakai = jam_meja * x_int + jam_kursi * y_int
+    total_kayu_dipakai = kayu_meja * x_int + kayu_kursi * y_int
+    if total_jam_dipakai <= total_jam and total_kayu_dipakai <= total_kayu:
         profit = profit_meja * x_int + profit_kursi * y_int
         profits_at_corners.append({'x': x_int, 'y': y_int, 'profit': profit})
-        if profit > optimal_profit:
-            optimal_profit, optimal_point = profit, (x_int, y_int)
+        if x_int > 0 and y_int > 0:
+            valid_solutions.append({'x': x_int, 'y': y_int, 'profit': profit})
+
+if valid_solutions:
+    best = max(valid_solutions, key=lambda item: item['profit'])
+    optimal_point = (best['x'], best['y'])
+    optimal_profit = best['profit']
+else:
+    optimal_point = (0, 0)
+    optimal_profit = 0
 
 # --- OUTPUT HASIL ---
 st.success(f"\U0001F4CC Solusi Optimal: {optimal_point[0]} Meja dan {optimal_point[1]} Kursi")
