@@ -5,7 +5,7 @@ import math
 
 # --- KONFIGURASI HALAMAN ---
 st.set_page_config(page_title="Optimasi Produksi", layout="wide", initial_sidebar_state="expanded")
-st.title("📊 Optimasi Produksi Furnitur")
+st.title("\U0001F4CA Optimasi Produksi Furnitur")
 st.subheader("Studi Kasus: UKM Mebel Jati 'Jati Indah'")
 
 # --- INPUT PARAMETER MODEL ---
@@ -65,8 +65,8 @@ for x, y in corner_points_unique:
         optimal_profit, optimal_point = profit, (math.floor(x), math.floor(y))
 
 # --- OUTPUT HASIL ---
-st.success(f"📌 Solusi Optimal Berdasarkan Titik Potong: {optimal_point[0]} Meja dan {optimal_point[1]} Kursi.")
-st.metric("💰 Keuntungan Maksimal", f"Rp {optimal_profit:,.0f}")
+st.success(f"\U0001F4CC Solusi Optimal Berdasarkan Titik Potong: {optimal_point[0]} Meja dan {optimal_point[1]} Kursi.")
+st.metric("\U0001F4B0 Keuntungan Maksimal", f"Rp {optimal_profit:,.0f}")
 
 # --- VISUALISASI GRAFIK ---
 fig, ax = plt.subplots(figsize=(10, 5))
@@ -81,6 +81,12 @@ ax.plot(x_vals, y1, label='Batas Jam Kerja')
 ax.plot(x_vals, y2, label='Batas Stok Kayu')
 ax.plot(optimal_point[0], optimal_point[1], 'ro', markersize=10, label=f'Optimal: {optimal_point}')
 
+# Garis bantu titik potong antar kendala dan proyeksinya ke sumbu
+ax.plot([0, intersect_point[0]], [y_intercept1, intersect_point[1]], 'k--', linewidth=1, alpha=0.7)
+ax.plot([x_intercept2, intersect_point[0]], [0, intersect_point[1]], 'k--', linewidth=1, alpha=0.7)
+ax.plot([intersect_point[0], intersect_point[0]], [0, intersect_point[1]], 'gray', linestyle='dotted')
+ax.plot([0, intersect_point[0]], [intersect_point[1], intersect_point[1]], 'gray', linestyle='dotted')
+
 ax.set_xlabel('Jumlah Meja (x)')
 ax.set_ylabel('Jumlah Kursi (y)')
 ax.set_title('Grafik Optimasi Produksi')
@@ -89,11 +95,11 @@ ax.grid(True)
 st.pyplot(fig)
 
 # --- TABEL TITIK-TITIK SUDUT ---
-st.markdown("### 📍 Titik-Titik Sudut dan Keuntungan")
+st.markdown("### \U0001F4CD Titik-Titik Sudut dan Keuntungan")
 st.table(profits_at_corners)
 
 # --- TABEL TITIK POTONG ---
-st.markdown("### 📌 Titik Potong Garis Kendala")
+st.markdown("### \U0001F4CC Titik Potong Garis Kendala")
 titik_potong = [
     {"Garis": "Jam Kerja (x-intercept)", "x": round(x_intercept1, 2), "y": 0},
     {"Garis": "Jam Kerja (y-intercept)", "x": 0, "y": round(y_intercept1, 2)},
