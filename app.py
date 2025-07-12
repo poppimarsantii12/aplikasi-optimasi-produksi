@@ -37,12 +37,12 @@ b_vector = np.array([total_jam, total_kayu])
 
 try:
     intersect_point = np.linalg.solve(A_matrix, b_vector)
-    if intersect_point[0] < 0 or intersect_point[1] < 0:
+    if intersect_point[0] <= 0 or intersect_point[1] <= 0:
         intersect_point = (0, 0)
 except np.linalg.LinAlgError:
     intersect_point = (0, 0)
 
-corner_points = [(0, 0)]
+corner_points = []
 if y_intercept1 != float('inf') and (kayu_meja*0 + kayu_kursi*y_intercept1 <= total_kayu):
     corner_points.append((0, y_intercept1))
 if y_intercept2 != float('inf') and (jam_meja*0 + jam_kursi*y_intercept2 <= total_jam):
@@ -61,7 +61,7 @@ profits_at_corners = []
 for x, y in corner_points_unique:
     x_int = math.floor(x)
     y_int = math.floor(y)
-    if (jam_meja * x_int + jam_kursi * y_int <= total_jam) and (kayu_meja * x_int + kayu_kursi * y_int <= total_kayu):
+    if x_int > 0 and y_int >= 0 and (jam_meja * x_int + jam_kursi * y_int <= total_jam) and (kayu_meja * x_int + kayu_kursi * y_int <= total_kayu):
         profit = profit_meja * x_int + profit_kursi * y_int
         profits_at_corners.append({'x': x_int, 'y': y_int, 'profit': profit})
         if profit > optimal_profit:
