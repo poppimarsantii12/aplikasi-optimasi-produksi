@@ -61,7 +61,7 @@ profits_at_corners = []
 for x, y in corner_points_unique:
     x_int = math.floor(x)
     y_int = math.floor(y)
-    if x_int > 0 and y_int >= 0 and (jam_meja * x_int + jam_kursi * y_int <= total_jam) and (kayu_meja * x_int + kayu_kursi * y_int <= total_kayu):
+    if x_int > 0 and y_int > 0 and (jam_meja * x_int + jam_kursi * y_int <= total_jam) and (kayu_meja * x_int + kayu_kursi * y_int <= total_kayu):
         profit = profit_meja * x_int + profit_kursi * y_int
         profits_at_corners.append({'x': x_int, 'y': y_int, 'profit': profit})
         if profit > optimal_profit:
@@ -114,5 +114,5 @@ st.table(titik_potong)
 # --- PENJELASAN TAMBAHAN ---
 st.markdown("""
 ### ℹ️ Penjelasan:
-Optimasi dilakukan dengan memeriksa semua **titik potong** antara batas kendala dan sumbu x/y, serta titik potong antar kendala. Dari semua titik ini dihitung keuntungannya, dan dipilih yang paling besar sebagai solusi optimal yang mencakup produksi **meja dan kursi secara bersamaan**.
+Optimasi dilakukan dengan memeriksa semua **titik potong** antara batas kendala dan sumbu x/y, serta titik potong antar kendala. Dari semua titik ini dihitung keuntungannya, dan dipilih yang paling besar sebagai solusi optimal yang mencakup produksi **meja dan kursi secara bersamaan** (x ≠ 0 dan y ≠ 0).
 """)
