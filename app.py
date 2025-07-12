@@ -91,3 +91,15 @@ st.pyplot(fig)
 # --- TABEL TITIK-TITIK SUDUT ---
 st.markdown("### 📍 Titik-Titik Sudut dan Keuntungan")
 st.table(profits_at_corners)
+
+# --- TABEL TITIK POTONG ---
+st.markdown("### 📌 Titik Potong Garis Kendala")
+titik_potong = [
+    {"Garis": "Jam Kerja (x-intercept)", "x": round(x_intercept1, 2), "y": 0},
+    {"Garis": "Jam Kerja (y-intercept)", "x": 0, "y": round(y_intercept1, 2)},
+    {"Garis": "Kayu (x-intercept)", "x": round(x_intercept2, 2), "y": 0},
+    {"Garis": "Kayu (y-intercept)", "x": 0, "y": round(y_intercept2, 2)},
+    {"Garis": "Perpotongan 2 Kendala", "x": round(intersect_point[0], 2), "y": round(intersect_point[1], 2)}
+]
+st.table(titik_potong)
+    
