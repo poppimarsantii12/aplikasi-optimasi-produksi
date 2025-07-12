@@ -141,7 +141,7 @@ Linear Programming adalah metode untuk mencapai hasil terbaik (seperti keuntunga
 
 #### Fungsi Tujuan (Maksimalkan Keuntungan):
 \[
-Z = ({:,} \cdot x) + ({:,} \cdot y)
+Z = ({:,} \times x) + ({:,} \times y)
 \]
 """.format(profit_meja, profit_kursi))
 
@@ -170,8 +170,8 @@ Z = {profit_meja:,}x + {profit_kursi:,}y
 
 #### Evaluasi Solusi Optimal:
 - Titik: \( x = {x_opt}, \ y = {y_opt} \)
-- Total Jam: \( {jam_meja} \cdot {x_opt} + {jam_kursi} \cdot {y_opt} = {total_jam_terpakai} \le {total_jam} \)
-- Total Kayu: \( {kayu_meja} \cdot {x_opt} + {kayu_kursi} \cdot {y_opt} = {total_kayu_terpakai} \le {total_kayu} \)
+- Total Jam: \( {jam_meja} \times {x_opt} + {jam_kursi} \times {y_opt} = {total_jam_terpakai} \le {total_jam} \)
+- Total Kayu: \( {kayu_meja} \times {x_opt} + {kayu_kursi} \times {y_opt} = {total_kayu_terpakai} \le {total_kayu} \)
 - **Keuntungan Maksimal: Rp {optimal_profit:,.0f}**
 """)
     else:
