@@ -68,9 +68,10 @@ y_vals = np.arange(1, int(min(y_intercept1, y_intercept2)) + 1)
 valid_solutions = []
 for x in x_vals:
     for y in y_vals:
-        if jam_meja * x + jam_kursi * y <= total_jam and kayu_meja * x + kayu_kursi * y <= total_kayu:
-            profit = profit_meja * x + profit_kursi * y
-            valid_solutions.append({'x': x, 'y': y, 'profit': profit})
+        if x > 0 and y > 0:
+            if jam_meja * x + jam_kursi * y <= total_jam and kayu_meja * x + kayu_kursi * y <= total_kayu:
+                profit = profit_meja * x + profit_kursi * y
+                valid_solutions.append({'x': x, 'y': y, 'profit': profit})
 
 if valid_solutions:
     best = max(valid_solutions, key=lambda item: item['profit'])
@@ -81,8 +82,11 @@ else:
     optimal_profit = 0
 
 # --- OUTPUT HASIL ---
-st.success(f"\U0001F4CC Solusi Optimal: {optimal_point[0]} Meja dan {optimal_point[1]} Kursi")
-st.metric("\U0001F4B0 Keuntungan Maksimal", f"Rp {optimal_profit:,.0f}")
+if optimal_point != (0, 0):
+    st.success(f"\U0001F4CC Solusi Optimal: {optimal_point[0]} Meja dan {optimal_point[1]} Kursi")
+    st.metric("\U0001F4B0 Keuntungan Maksimal", f"Rp {optimal_profit:,.0f}")
+else:
+    st.error("❌ Tidak ditemukan solusi valid dengan x > 0 dan y > 0.")
 
 # --- VISUALISASI GRAFIK ---
 fig, ax = plt.subplots(figsize=(10, 5))
@@ -96,7 +100,12 @@ y_feasible = np.minimum(y1, y2)
 ax.fill_between(x_vals_plot, 0, y_feasible, where=(y_feasible >= 0), color='green', alpha=0.2, label='Daerah Layak')
 ax.plot(x_vals_plot, y1, label='Batas Jam Kerja')
 ax.plot(x_vals_plot, y2, label='Batas Stok Kayu')
-ax.plot(optimal_point[0], optimal_point[1], 'ro', markersize=10, label=f'Optimal: {optimal_point}')
+
+if optimal_point != (0, 0):
+    ax.plot(optimal_point[0], optimal_point[1], 'ro', markersize=10, label=f'Optimal: {optimal_point}')
+
+if intersect_point[0] > 0 and intersect_point[1] > 0:
+    ax.plot(intersect_point[0], intersect_point[1], 'go', markersize=8, label='Titik Potong Batas')
 
 ax.set_xlabel('Jumlah Meja (x)')
 ax.set_ylabel('Jumlah Kursi (y)')
@@ -106,8 +115,11 @@ ax.grid(True)
 st.pyplot(fig)
 
 # --- TABEL TITIK VALID ---
-st.markdown("### \U0001F4CD Titik Produksi Layak dan Keuntungan")
-st.table(valid_solutions)
+if valid_solutions:
+    st.markdown("### \U0001F4CD Titik Produksi Layak dan Keuntungan")
+    st.table(valid_solutions)
+else:
+    st.info("Tidak ada kombinasi meja dan kursi dengan x > 0 dan y > 0 yang memenuhi batasan.")
 
 st.markdown("""
 ### ℹ️ Penjelasan:
