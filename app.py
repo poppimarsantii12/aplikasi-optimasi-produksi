@@ -59,13 +59,16 @@ corner_points_unique = sorted(list(set(corner_points)), key=lambda k: (k[0], k[1
 optimal_profit, optimal_point = 0, (0, 0)
 profits_at_corners = []
 for x, y in corner_points_unique:
-    profit = profit_meja * x + profit_kursi * y
-    profits_at_corners.append({'x': round(x, 2), 'y': round(y, 2), 'profit': round(profit, 2)})
-    if profit > optimal_profit:
-        optimal_profit, optimal_point = profit, (math.floor(x), math.floor(y))
+    x_int = math.floor(x)
+    y_int = math.floor(y)
+    if (jam_meja * x_int + jam_kursi * y_int <= total_jam) and (kayu_meja * x_int + kayu_kursi * y_int <= total_kayu):
+        profit = profit_meja * x_int + profit_kursi * y_int
+        profits_at_corners.append({'x': x_int, 'y': y_int, 'profit': profit})
+        if profit > optimal_profit:
+            optimal_profit, optimal_point = profit, (x_int, y_int)
 
 # --- OUTPUT HASIL ---
-st.success(f"\U0001F4CC Solusi Optimal Berdasarkan Titik Potong: {optimal_point[0]} Meja dan {optimal_point[1]} Kursi.")
+st.success(f"\U0001F4CC Solusi Optimal: {optimal_point[0]} Meja dan {optimal_point[1]} Kursi")
 st.metric("\U0001F4B0 Keuntungan Maksimal", f"Rp {optimal_profit:,.0f}")
 
 # --- VISUALISASI GRAFIK ---
@@ -81,7 +84,6 @@ ax.plot(x_vals, y1, label='Batas Jam Kerja')
 ax.plot(x_vals, y2, label='Batas Stok Kayu')
 ax.plot(optimal_point[0], optimal_point[1], 'ro', markersize=10, label=f'Optimal: {optimal_point}')
 
-# Garis bantu titik potong antar kendala dan proyeksinya ke sumbu
 ax.plot([0, intersect_point[0]], [y_intercept1, intersect_point[1]], 'k--', linewidth=1, alpha=0.7)
 ax.plot([x_intercept2, intersect_point[0]], [0, intersect_point[1]], 'k--', linewidth=1, alpha=0.7)
 ax.plot([intersect_point[0], intersect_point[0]], [0, intersect_point[1]], 'gray', linestyle='dotted')
@@ -112,5 +114,5 @@ st.table(titik_potong)
 # --- PENJELASAN TAMBAHAN ---
 st.markdown("""
 ### ℹ️ Penjelasan:
-Optimasi dilakukan dengan memeriksa semua **titik potong** antara batas kendala dan sumbu x/y, serta titik potong antar kendala. Dari semua titik ini dihitung keuntungannya, dan dipilih yang paling besar sebagai solusi optimal.
+Optimasi dilakukan dengan memeriksa semua **titik potong** antara batas kendala dan sumbu x/y, serta titik potong antar kendala. Dari semua titik ini dihitung keuntungannya, dan dipilih yang paling besar sebagai solusi optimal yang mencakup produksi **meja dan kursi secara bersamaan**.
 """)
