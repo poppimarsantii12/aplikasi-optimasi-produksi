@@ -8,6 +8,27 @@ st.set_page_config(page_title="Optimasi Produksi", layout="wide", initial_sideba
 st.title("\U0001F4CA Optimasi Produksi Furnitur")
 st.subheader("Studi Kasus: UKM Mebel Jati 'Jati Indah'")
 
+st.markdown("""
+**Deskripsi Kasus:**
+
+Sebuah usaha mebel memiliki sumber daya terbatas:
+- Total waktu kerja: **240 jam/minggu**
+- Total stok kayu: **120 unit**
+
+Produksi:
+- **Meja**:
+  - Keuntungan: Rp750.000
+  - Waktu pengerjaan: 6 jam
+  - Kebutuhan kayu: 4 unit
+- **Kursi**:
+  - Keuntungan: Rp300.000
+  - Waktu pengerjaan: 2 jam
+  - Kebutuhan kayu: 1.5 unit
+
+**Pertanyaan:**
+Berapa jumlah **meja dan kursi** yang harus diproduksi agar keuntungan **maksimal**, dengan syarat **kedua jenis produk harus diproduksi (x > 0, y > 0)**?
+""")
+
 # --- INPUT PARAMETER MODEL ---
 st.markdown("**Masukkan Parameter Produksi:**")
 
