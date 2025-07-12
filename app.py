@@ -147,8 +147,8 @@ Z = {:,}\times x + {:,}\times y
 
     st.markdown(f"""
 #### Fungsi Kendala:
-1. \( {jam_meja}x + {jam_kursi}y \le {total_jam} \)
-2. \( {kayu_meja}x + {kayu_kursi}y \le {total_kayu} \)
+1. \( {jam_meja}x + {jam_kursi}y \\le {total_jam} \)
+2. \( {kayu_meja}x + {kayu_kursi}y \\le {total_kayu} \)
 3. \( x > 0,\ y > 0 \)
 """)
 
