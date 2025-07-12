@@ -147,9 +147,13 @@ Z = {:,}\times x + {:,}\times y
 
     st.markdown(f"""
 #### Fungsi Kendala:
-1. \( {jam_meja}x + {jam_kursi}y \\le {total_jam} \)
-2. \( {kayu_meja}x + {kayu_kursi}y \\le {total_kayu} \)
-3. \( x > 0,\ y > 0 \)
+\[
+\begin{{aligned}}
+&1.\quad {jam_meja}x + {jam_kursi}y \le {total_jam} \\
+&2.\quad {kayu_meja}x + {kayu_kursi}y \le {total_kayu} \\
+&3.\quad x > 0,\ y > 0
+\end{{aligned}}
+\]
 """)
 
 with st.expander("\U0001F4CA Lihat Proses Perhitungan"):
@@ -160,12 +164,12 @@ with st.expander("\U0001F4CA Lihat Proses Perhitungan"):
         total_kayu_terpakai = best['kayu']
         st.latex(f"Z = {profit_meja:,}x + {profit_kursi:,}y")
         st.subheader("Fungsi Kendala dengan Angka:")
-        st.latex(f"{jam_meja}x + {jam_kursi}y \\le {total_jam}")
-        st.latex(f"{kayu_meja}x + {kayu_kursi}y \\le {total_kayu}")
+        st.latex(f"{jam_meja}x + {jam_kursi}y \le {total_jam}")
+        st.latex(f"{kayu_meja}x + {kayu_kursi}y \le {total_kayu}")
         st.subheader("Evaluasi Solusi Optimal:")
-        st.markdown(f"- Titik: \\( x = {x_opt},\\ y = {y_opt} \\)")
-        st.latex(f"{jam_meja} \\times {x_opt} + {jam_kursi} \\times {y_opt} = {total_jam_terpakai} \\le {total_jam}")
-        st.latex(f"{kayu_meja} \\times {x_opt} + {kayu_kursi} \\times {y_opt} = {total_kayu_terpakai} \\le {total_kayu}")
+        st.latex(f"x = {x_opt},\ y = {y_opt}")
+        st.latex(f"{jam_meja} \times {x_opt} + {jam_kursi} \times {y_opt} = {total_jam_terpakai} \le {total_jam}")
+        st.latex(f"{kayu_meja} \times {x_opt} + {kayu_kursi} \times {y_opt} = {total_kayu_terpakai} \le {total_kayu}")
         st.markdown(f"**Keuntungan Maksimal: Rp {optimal_profit:,.0f}**")
     else:
         st.info("Belum ditemukan solusi optimal untuk ditampilkan.")
