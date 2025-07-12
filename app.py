@@ -126,7 +126,3 @@ if best_solution:
 else:
     st.info("Tidak ada kombinasi meja dan kursi dengan x > 0 dan y > 0 yang memenuhi batasan.")
 
-st.markdown("""
-### ℹ️ Penjelasan:
-Hanya titik-titik dengan **x > 0 dan y > 0** yang diperiksa agar usaha memproduksi **meja dan kursi secara bersamaan**. Dari semua solusi yang valid terhadap batasan waktu dan kayu, dipilih kombinasi dengan keuntungan maksimal.
-""")
