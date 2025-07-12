@@ -136,12 +136,12 @@ Linear Programming adalah metode untuk mencapai hasil terbaik (seperti keuntunga
 - **Fungsi Kendala**: Ini adalah batasan aturan yang harus dipatuhi, seperti sumber daya yang terbatas (jam kerja, bahan baku).
 
 #### Variabel Keputusan:
-- \( x \) = Jumlah Meja  
-- \( y \) = Jumlah Kursi
+- $x$ = Jumlah Meja  
+- $y$ = Jumlah Kursi
 
 #### Fungsi Tujuan (Maksimalkan Keuntungan):
 \[
-Z = ({:,} \times x) + ({:,} \times y)
+Z = {:,}\times x + {:,}\times y
 \]
 """.format(profit_meja, profit_kursi))
 
@@ -149,7 +149,7 @@ Z = ({:,} \times x) + ({:,} \times y)
 #### Fungsi Kendala:
 1. \( {jam_meja}x + {jam_kursi}y \le {total_jam} \)
 2. \( {kayu_meja}x + {kayu_kursi}y \le {total_kayu} \)
-3. \( x > 0, \ y > 0 \)
+3. \( x > 0,\ y > 0 \)
 """)
 
 with st.expander("\U0001F4CA Lihat Proses Perhitungan"):
@@ -169,7 +169,7 @@ Z = {profit_meja:,}x + {profit_kursi:,}y
 2. \( {kayu_meja}x + {kayu_kursi}y \le {total_kayu} \)
 
 #### Evaluasi Solusi Optimal:
-- Titik: \( x = {x_opt}, \ y = {y_opt} \)
+- Titik: \( x = {x_opt},\ y = {y_opt} \)
 - Total Jam: \( {jam_meja} \times {x_opt} + {jam_kursi} \times {y_opt} = {total_jam_terpakai} \le {total_jam} \)
 - Total Kayu: \( {kayu_meja} \times {x_opt} + {kayu_kursi} \times {y_opt} = {total_kayu_terpakai} \le {total_kayu} \)
 - **Keuntungan Maksimal: Rp {optimal_profit:,.0f}**
