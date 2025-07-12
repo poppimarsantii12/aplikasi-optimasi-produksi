@@ -68,18 +68,19 @@ y_vals = np.arange(1, int(min(y_intercept1, y_intercept2)) + 1)
 valid_solutions = []
 for x in x_vals:
     for y in y_vals:
-        if x > 0 and y > 0:
-            if jam_meja * x + jam_kursi * y <= total_jam and kayu_meja * x + kayu_kursi * y <= total_kayu:
-                profit = profit_meja * x + profit_kursi * y
-                valid_solutions.append({'x': x, 'y': y, 'profit': profit})
+        if jam_meja * x + jam_kursi * y <= total_jam and kayu_meja * x + kayu_kursi * y <= total_kayu:
+            profit = profit_meja * x + profit_kursi * y
+            valid_solutions.append({'x': x, 'y': y, 'profit': profit})
 
 if valid_solutions:
     best = max(valid_solutions, key=lambda item: item['profit'])
     optimal_point = (best['x'], best['y'])
     optimal_profit = best['profit']
+    best_solution = [best]  # hanya tampilkan yang terbaik
 else:
     optimal_point = (0, 0)
     optimal_profit = 0
+    best_solution = []
 
 # --- OUTPUT HASIL ---
 if optimal_point != (0, 0):
@@ -115,9 +116,9 @@ ax.grid(True)
 st.pyplot(fig)
 
 # --- TABEL TITIK VALID ---
-if valid_solutions:
-    st.markdown("### \U0001F4CD Titik Produksi Layak dan Keuntungan")
-    st.table(valid_solutions)
+if best_solution:
+    st.markdown("### \U0001F4CD Titik Produksi Optimal")
+    st.table(best_solution)
 else:
     st.info("Tidak ada kombinasi meja dan kursi dengan x > 0 dan y > 0 yang memenuhi batasan.")
 
