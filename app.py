@@ -12,8 +12,8 @@ st.markdown("""
 **Deskripsi Kasus:**
 
 Sebuah usaha mebel memiliki sumber daya terbatas:
-- Total waktu kerja: **240 jam/minggu**
-- Total stok kayu: **120 unit**
+- Total waktu kerja: **360 jam/minggu**
+- Total stok kayu: **160 unit**
 
 Produksi:
 - **Meja**:
@@ -44,8 +44,8 @@ with col2:
     kayu_kursi = st.number_input("Kayu untuk Kursi (unit)", min_value=1.0, value=1.5, step=0.5)
 
 with col3:
-    total_jam = st.number_input("Total Jam Kerja Tim (per minggu)", min_value=1, value=240, step=10)
-    total_kayu = st.number_input("Total Kayu Jati Tersedia (unit)", min_value=1, value=120, step=10)
+    total_jam = st.number_input("Total Jam Kerja Tim (per minggu)", min_value=1, value=360, step=10)
+    total_kayu = st.number_input("Total Kayu Jati Tersedia (unit)", min_value=1, value=160, step=10)
 
 # --- TITIK POTONG ---
 x_intercept1 = total_jam / jam_meja
@@ -73,7 +73,11 @@ for x in x_vals:
             valid_solutions.append({'x': x, 'y': y, 'profit': profit})
 
 if valid_solutions:
-    best = max(valid_solutions, key=lambda item: item['profit'])
+    filtered = [s for s in valid_solutions if s['x'] > 1]
+    if filtered:
+        best = max(filtered, key=lambda item: item['profit'])
+    else:
+        best = max(valid_solutions, key=lambda item: item['profit'])
     optimal_point = (best['x'], best['y'])
     optimal_profit = best['profit']
     best_solution = [best]  # hanya tampilkan yang terbaik
@@ -103,7 +107,7 @@ ax.plot(x_vals_plot, y1, label='Batas Jam Kerja')
 ax.plot(x_vals_plot, y2, label='Batas Stok Kayu')
 
 if optimal_point != (0, 0):
-    ax.plot(optimal_point[0], optimal_point[1], 'ro', markersize=10, label=f'Optimal: {optimal_point}')
+    ax.plot(optimal_point[0], optimal_point[1], 'ro', markersize=10, label=f'Optimal: {optimal_point[0]}, {optimal_point[1]}')
 
 if intersect_point[0] > 0 and intersect_point[1] > 0:
     ax.plot(intersect_point[0], intersect_point[1], 'go', markersize=8, label='Titik Potong Batas')
