@@ -68,9 +68,11 @@ y_vals = np.arange(1, int(min(y_intercept1, y_intercept2)) + 1)
 valid_solutions = []
 for x in x_vals:
     for y in y_vals:
-        if jam_meja * x + jam_kursi * y <= total_jam and kayu_meja * x + kayu_kursi * y <= total_kayu:
+        jam_total = jam_meja * x + jam_kursi * y
+        kayu_total = kayu_meja * x + kayu_kursi * y
+        if jam_total <= total_jam and kayu_total <= total_kayu:
             profit = profit_meja * x + profit_kursi * y
-            valid_solutions.append({'x': x, 'y': y, 'profit': profit})
+            valid_solutions.append({'x': x, 'y': y, 'profit': profit, 'jam': jam_total, 'kayu': kayu_total})
 
 if valid_solutions:
     filtered = [s for s in valid_solutions if s['x'] > 1]
@@ -126,3 +128,51 @@ if best_solution:
 else:
     st.info("Tidak ada kombinasi meja dan kursi dengan x > 0 dan y > 0 yang memenuhi batasan.")
 
+with st.expander("\U0001F4D8 Penjelasan Rumus Model: Linear Programming"):
+    st.markdown(r"""
+Linear Programming adalah metode untuk mencapai hasil terbaik (seperti keuntungan maksimal atau biaya minimal) dalam suatu model matematika yang persyaratannya diwakili oleh hubungan linear.
+
+- **Fungsi Tujuan**: Ini adalah formula yang ingin kita maksimalkan (keuntungan) atau minimalkan (biaya).
+- **Fungsi Kendala**: Ini adalah batasan aturan yang harus dipatuhi, seperti sumber daya yang terbatas (jam kerja, bahan baku).
+
+#### Variabel Keputusan:
+- \( x \) = Jumlah Meja  
+- \( y \) = Jumlah Kursi
+
+#### Fungsi Tujuan (Maksimalkan Keuntungan):
+\[
+Z = ({:,} \cdot x) + ({:,} \cdot y)
+\]
+""".format(profit_meja, profit_kursi))
+
+    st.markdown(f"""
+#### Fungsi Kendala:
+1. \( {jam_meja}x + {jam_kursi}y \leq {total_jam} \)
+2. \( {kayu_meja}x + {kayu_kursi}y \leq {total_kayu} \)
+3. \( x > 0, \ y > 0 \)
+""")
+
+with st.expander("\U0001F4CA Lihat Proses Perhitungan"):
+    if best_solution:
+        x_opt = best['x']
+        y_opt = best['y']
+        total_jam_terpakai = best['jam']
+        total_kayu_terpakai = best['kayu']
+        st.markdown(f"""
+#### Fungsi Tujuan dengan Angka:
+\[
+Z = {profit_meja:,}x + {profit_kursi:,}y
+\]
+
+#### Fungsi Kendala dengan Angka:
+1. \( {jam_meja}x + {jam_kursi}y \leq {total_jam} \)  
+2. \( {kayu_meja}x + {kayu_kursi}y \leq {total_kayu} \)
+
+#### Evaluasi Solusi Optimal:
+- Titik: \( x = {x_opt}, \ y = {y_opt} \)
+- Total Jam: \( {jam_meja} \cdot {x_opt} + {jam_kursi} \cdot {y_opt} = {total_jam_terpakai} \leq {total_jam} \)
+- Total Kayu: \( {kayu_meja} \cdot {x_opt} + {kayu_kursi} \cdot {y_opt} = {total_kayu_terpakai} \leq {total_kayu} \)
+- **Keuntungan Maksimal: Rp {optimal_profit:,.0f}**
+""")
+    else:
+        st.info("Belum ditemukan solusi optimal untuk ditampilkan.")
