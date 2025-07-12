@@ -65,8 +65,8 @@ for x, y in corner_points_unique:
         optimal_profit, optimal_point = profit, (math.floor(x), math.floor(y))
 
 # --- OUTPUT HASIL ---
-st.success(f"Produksi optimal adalah {optimal_point[0]} Meja dan {optimal_point[1]} Kursi.")
-st.metric("Keuntungan Maksimal", f"Rp {optimal_profit:,.0f}")
+st.success(f"📌 Solusi Optimal Berdasarkan Titik Potong: {optimal_point[0]} Meja dan {optimal_point[1]} Kursi.")
+st.metric("💰 Keuntungan Maksimal", f"Rp {optimal_profit:,.0f}")
 
 # --- VISUALISASI GRAFIK ---
 fig, ax = plt.subplots(figsize=(10, 5))
@@ -80,19 +80,6 @@ ax.fill_between(x_vals, 0, y_feasible, where=(y_feasible >= 0), color='green', a
 ax.plot(x_vals, y1, label='Batas Jam Kerja')
 ax.plot(x_vals, y2, label='Batas Stok Kayu')
 ax.plot(optimal_point[0], optimal_point[1], 'ro', markersize=10, label=f'Optimal: {optimal_point}')
-
-# --- TAMBAH TITIK POTONG KE GRAFIK ---
-ax.plot(x_intercept1, 0, 'bo')
-ax.text(x_intercept1, 0, f'  ({round(x_intercept1,1)}, 0)', color='blue')
-ax.plot(0, y_intercept1, 'bo')
-ax.text(0, y_intercept1, f'  (0, {round(y_intercept1,1)})', color='blue')
-ax.plot(x_intercept2, 0, 'go')
-ax.text(x_intercept2, 0, f'  ({round(x_intercept2,1)}, 0)', color='green')
-ax.plot(0, y_intercept2, 'go')
-ax.text(0, y_intercept2, f'  (0, {round(y_intercept2,1)})', color='green')
-if intersect_point != (0, 0):
-    ax.plot(intersect_point[0], intersect_point[1], 'mo')
-    ax.text(intersect_point[0], intersect_point[1], f'  ({round(intersect_point[0],1)}, {round(intersect_point[1],1)})', color='purple')
 
 ax.set_xlabel('Jumlah Meja (x)')
 ax.set_ylabel('Jumlah Kursi (y)')
@@ -118,8 +105,6 @@ st.table(titik_potong)
 
 # --- PENJELASAN TAMBAHAN ---
 st.markdown("""
-#### 📌 Penjelasan Titik Potong:
-- Titik potong pada sumbu-x dan sumbu-y menunjukkan jumlah maksimum **meja** atau **kursi** yang dapat diproduksi jika hanya menggunakan satu jenis sumber daya (jam kerja atau kayu).
-- Titik potong antar dua garis kendala menunjukkan kombinasi meja dan kursi yang **menghabiskan kedua sumber daya secara bersamaan**.
-- Solusi optimal diambil dari titik-titik sudut pada daerah layak, termasuk titik-titik potong ini.
+### ℹ️ Penjelasan:
+Optimasi dilakukan dengan memeriksa semua **titik potong** antara batas kendala dan sumbu x/y, serta titik potong antar kendala. Dari semua titik ini dihitung keuntungannya, dan dipilih yang paling besar sebagai solusi optimal.
 """)
